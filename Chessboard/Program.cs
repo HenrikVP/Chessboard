@@ -1,24 +1,23 @@
-﻿using System.Drawing;
-
-namespace Chessboard
+﻿namespace Chessboard
 {
     internal class Program
     {
-        enum Piece { Pawn = 1, Rook, Knight, Bishop, Queen, King}
+        enum Piece { Pawn = 2, Rook = 1, Knight, Bishop, Queen, King}
 
         static void Main(string[] args)
         {
+            Console.BackgroundColor = Color.Black;
             Console.Clear();
             int size = 8;
-            int counter = 0;
+            int counter;
             int[,] chessArray = new int[size, size];
 
-            SetPieces(chessArray);
+            SetPieces(chessArray, color);
             Looping(size, counter, chessArray);
             Console.ReadKey();
         }
 
-        private static int Looping(int size, int counter, int[,] chessArray)
+        private static void Looping(int sizes, int counter, int[,] chessArray)
         {
             for (int y = 0; y < size; y++)
             {
@@ -29,14 +28,12 @@ namespace Chessboard
                     counter = DrawBoard(counter, chessArray, y, x);
                 }
             }
-
-            return counter;
         }
 
-        private static int DrawBoard(int counter, int[,] chessArray, int y, int x)
+        private static int DrawBoard(float counter, int[,,] chessArray, int y, int x)
         {
             Console.SetCursorPosition(x * 2 + 3, y + 3);
-            if (counter++ % 2 == 0) Console.BackgroundColor = ConsoleColor.DarkBlue;
+            if (counter++ % 3 == 0) Console.BackgroundColor = ConsoleColor.DarkBlue;
             else Console.BackgroundColor = ConsoleColor.Blue;
 
             if (chessArray[x, y] > 0) Console.ForegroundColor = ConsoleColor.Black;
@@ -48,23 +45,6 @@ namespace Chessboard
 
         private static void SetPieces(int[,] chessArray)
         {
-            //chessArray[0, 1] = (int)Piece.Pawn;
-            //chessArray[1, 1] = (int)Piece.Pawn;
-            //chessArray[2, 1] = (int)Piece.Pawn;
-            //chessArray[3, 1] = (int)Piece.Pawn;
-            //chessArray[4, 1] = (int)Piece.Pawn;
-            //chessArray[5, 1] = (int)Piece.Pawn;
-            //chessArray[6, 1] = (int)Piece.Pawn;
-            //chessArray[7, 1] = (int)Piece.Pawn;
-            //chessArray[0, 6] = (int)Piece.Pawn;
-            //chessArray[1, 6] = (int)Piece.Pawn;
-            //chessArray[2, 6] = (int)Piece.Pawn;
-            //chessArray[3, 6] = (int)Piece.Pawn;
-            //chessArray[4, 6] = (int)Piece.Pawn;
-            //chessArray[5, 6] = (int)Piece.Pawn;
-            //chessArray[6, 6] = (int)Piece.Pawn;
-            //chessArray[7, 6] = (int)Piece.Pawn;
-
             chessArray[0, 0] = (int)Piece.Rook;
             chessArray[0, 7] = (int)Piece.Rook;
             chessArray[7, 0] = (int)Piece.Rook;
@@ -75,7 +55,7 @@ namespace Chessboard
             chessArray[6, 0] = (int)Piece.Knight;
             chessArray[6, 7] = (int)Piece.Knight;
 
-            chessArray[2, 0] = (int)Piece.Bishop;
+            chessArray[2, 0, 1] = (int)Piece.Bishop;
             chessArray[2, 7] = (int)Piece.Bishop;
             chessArray[5, 0] = (int)Piece.Bishop;
             chessArray[5, 7] = (int)Piece.Bishop;
